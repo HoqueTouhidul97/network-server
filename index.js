@@ -8,14 +8,11 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParse.json());
-
-const info = { user: 'volunteer', pass: 'Arabian79', db: 'volunteerNetwork' };
-
 const port = 5000;
 
 
 
-const uri = `mongodb+srv://volunteer:Arabian79@cluster0.dc1pe.mongodb.net/volunteerNetwork?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dc1pe.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
     const events = client.db("volunteerNetwork").collection("events");
